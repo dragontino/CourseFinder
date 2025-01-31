@@ -1,0 +1,50 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.CourseFinder" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="backgroundColor">@color/black</item>
+        <item name="colorOnBackground">#F2F2F3</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="Theme.CourseFinder" parent="Base.Theme.CourseFinder" />
+
+    <style name="BottomNavigationView" parent="Base.Theme.Material3.Dark">
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:background">@color/toolbar_background_color</item>
+    </style>
+
+    <style name="BottomNavigationView.Active">
+        <item name="android:textColor">@color/selected_item_color</item>
+    </style>
+
+    <style name="BottomNavigationView.Inactive">
+        <item name="android:textColor">?attr/colorOnBackground</item>
+    </style>
+
+    <style name="BodyLarge">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+    </style>
+
+    <style name="BodyMedium">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="BodySmall">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+        <item name="android:letterSpacing">0.03</item>
+    </style>
+
+    <style name="CardShapeAppearance">
+        <item name="cornerSize">16sp</item>
+    </style>
+</resources>

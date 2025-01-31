@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fragment_home"
+        android:icon="@drawable/icon_home"
+        android:title="@string/home_fragment_title"
+        />
+
+    <item
+        android:id="@+id/fragment_favourites"
+        android:icon="@drawable/icon_favourite"
+        android:title="@string/favourites_fragment_title"
+        />
+
+    <item
+        android:id="@+id/fragment_account"
+        android:icon="@drawable/icon_account"
+        android:title="@string/account_fragment_title"
+        />
+</menu>

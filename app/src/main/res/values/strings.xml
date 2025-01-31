@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name" translatable="false">Course Finder</string>
+    <string name="home_fragment_title">Home</string>
+    <string name="favourites_fragment_title">Favourites</string>
+    <string name="account_fragment_title">Account</string>
+    <string name="empty_course_list_placeholder">There are no any courses</string>
+    <string name="retry">Retry</string>
+    <string name="close">Close</string>
+    <string name="button_more_title">More</string>
+
+</resources>

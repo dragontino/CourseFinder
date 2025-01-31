@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_fragment_title">Главная</string>
+    <string name="favourites_fragment_title">Избранное</string>
+    <string name="account_fragment_title">Аккаунт</string>
+    <string name="empty_course_list_placeholder">Не найдено ни одного курса</string>
+    <string name="retry">Перезагрузить</string>
+    <string name="close">Закрыть</string>
+    <string name="button_more_title">Подробнее</string>
+</resources>
