@@ -10,14 +10,32 @@
         android:name="ru.coursefinder.app.ui.home.HomeFragment"
         android:label="@string/home_fragment_title"
         tools:layout="@layout/fragment_home"
-        />
+        >
+        <action
+            android:id="@+id/show_course_details_action"
+            app:destination="@id/fragment_course"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/fragment_home"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/fragment_favourites"
-        android:name="ru.coursefinder.app.ui.favourites.FavouritesFragment"
+        android:name="ru.coursefinder.app.ui.favourites.FavouriteCoursesFragment"
         android:label="@string/favourites_fragment_title"
-        tools:layout="@layout/fragment_favourites"
-        />
+        tools:layout="@layout/fragment_favourites">
+
+        <action
+            android:id="@+id/show_course_details_action"
+            app:destination="@id/fragment_course"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/fragment_favourites"
+            />
+    </fragment>
 
     <fragment
         android:id="@+id/fragment_account"
@@ -25,5 +43,18 @@
         android:label="@string/account_fragment_title"
         tools:layout="@layout/fragment_account"
         />
+
+    <fragment
+        android:id="@+id/fragment_course"
+        android:name="ru.coursefinder.app.ui.course.CourseFragment"
+        android:label="@string/course_title"
+        tools:layout="@layout/fragment_course">
+
+        <argument
+            android:name="course_id"
+            app:argType="long"
+            />
+
+    </fragment>
 
 </navigation>

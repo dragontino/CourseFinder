@@ -14,7 +14,7 @@ internal class CoursesApiPagingSource(private val api: CoursesApi) : PagingSourc
 
     private companion object {
         const val INITIAL_PAGE = 1
-        const val MAX_PAGE = 30 // Временное ограничение
+        const val MAX_PAGE = 40 // Временное ограничение
         const val TAG = "CoursesApiPagingSource"
     }
 
@@ -36,10 +36,11 @@ internal class CoursesApiPagingSource(private val api: CoursesApi) : PagingSourc
                     val authorsAsync = course.authorIds.map { authorId ->
                         async(Dispatchers.IO) { api.getUserById(authorId).users[0] }
                     }
-                    course.convertToDomainCourse(
-                        authors = authorsAsync.awaitAll(),
-                        rating = ratingAsync.await()
-                    )
+                    course.copy(price = course.price.takeUnless { it == "-" })
+                        .convertToDomainCourse(
+                            authors = authorsAsync.awaitAll(),
+                            rating = ratingAsync.await()
+                        )
                 }
 
                 LoadResult.Page(

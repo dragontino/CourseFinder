@@ -15,10 +15,10 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import ru.coursefinder.app.R
 import ru.coursefinder.app.databinding.CourseItemLayoutBinding
 import ru.coursefinder.app.utils.getDisplayableDateString
 import ru.coursefinder.app.utils.parseToDate
-import ru.coursefinder.app.utils.syncWithLifecycleOwner
 import ru.coursefinder.domain.model.Course
 import java.util.Locale
 
@@ -43,13 +43,19 @@ internal class CoursesAdapter(
         private val listener: CourseItemListener
     ) : RecyclerView.ViewHolder(binding.root) {
 
-
         fun bind(course: Course) {
             setupCoverImageView(course)
-            binding.bookmarkButton.setOnClickListener {
+            binding.bookmarkButton.apply {
                 when {
-                    course.isFavourite -> listener.removeCourseFromFavourites(course)
-                    else -> listener.addCourseToFavourite(course)
+                    course.isFavourite -> setImageResource(R.drawable.icon_bookmark_filled)
+                    else -> setImageResource(R.drawable.icon_bookmark)
+                }
+
+                setOnClickListener {
+                    when {
+                        course.isFavourite -> listener.removeCourseFromSaved(course)
+                        else -> listener.saveCourse(course)
+                    }
                 }
             }
 
@@ -58,7 +64,7 @@ internal class CoursesAdapter(
                 course.rating?.let { rating ->
                     text = String.format(
                         locale = Locale.getDefault(),
-                        format = "%.3f",
+                        format = "%.2f",
                         args = arrayOf(rating)
                     )
                 }
@@ -81,7 +87,7 @@ internal class CoursesAdapter(
 
             binding.price.apply {
                 course.price
-                    .takeIf { it.isNotBlank() }
+                    .takeUnless { it.isNullOrBlank() }
                     ?.let { text = it }
             }
 
@@ -94,7 +100,6 @@ internal class CoursesAdapter(
             binding.cover.apply {
                 Glide
                     .with(context.applicationContext)
-                    .syncWithLifecycleOwner(this)
                     .load(course.cover)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .transition(DrawableTransitionOptions.withCrossFade())
@@ -143,9 +148,9 @@ internal class CoursesAdapter(
 
 
 internal interface CourseItemListener {
-    fun addCourseToFavourite(course: Course)
+    fun saveCourse(course: Course)
 
-    fun removeCourseFromFavourites(course: Course)
+    fun removeCourseFromSaved(course: Course)
 
     fun openCourseDetails(course: Course)
 

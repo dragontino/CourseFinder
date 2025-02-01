@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ru.coursefinder.app.databinding.FragmentFavouritesBinding
 
-class FavouritesFragment : Fragment() {
+class FavouriteCoursesFragment : Fragment() {
     private var _binding: FragmentFavouritesBinding? = null
     private  val binding get() = _binding!!
 

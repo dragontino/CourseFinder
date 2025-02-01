@@ -21,7 +21,7 @@ data class Course(
     val publishDate: String,
     val startCourseUrl: String,
     val canonicalUrl: String,
-    val price: String,
+    val price: String?,
     val rating: Double?,
     val authors: List<User> = emptyList()
 )

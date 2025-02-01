@@ -7,4 +7,9 @@
     <string name="retry">Перезагрузить</string>
     <string name="close">Закрыть</string>
     <string name="button_more_title">Подробнее</string>
+    <string name="account_placeholder_text">Ваш аккаунт</string>
+    <string name="search_course_placeholder">Искать курсы…</string>
+    <string name="sort_by_date">По дате добавления</string>
+    <string name="course_cover_image_load_failed">Не удалось загрузить изображение для курса «%s»</string>
+    <string name="course_title">Курс</string>
 </resources>

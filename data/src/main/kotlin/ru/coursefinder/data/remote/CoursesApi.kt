@@ -92,7 +92,7 @@ private class CoursesApiImpl : CoursesApi {
 
             val reviewCount: Int = reviewSummaries["count"]!!.let(json::decodeFromJsonElement)
             return reviewSummaries["average"]
-                ?.takeIf { reviewCount == 0 }
+                ?.takeIf { reviewCount != 0 }
                 ?.let(json::decodeFromJsonElement)
         }
     } catch (e: IllegalArgumentException) {

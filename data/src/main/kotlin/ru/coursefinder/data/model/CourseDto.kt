@@ -21,7 +21,7 @@ internal data class CourseDto(
     @SerialName("became_published_at") val publishDate: String,
     @SerialName("continue_url") val startCourseUrl: String,
     @SerialName("canonical_url") val canonicalUrl: String,
-    @SerialName("display_price") val price: String,
+    @SerialName("display_price") val price: String?,
     @SerialName("is_favorite") val isFavourite: Boolean,
     val authorIds: List<Long> = emptyList()
 ) {

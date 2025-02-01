@@ -7,5 +7,10 @@
     <string name="retry">Retry</string>
     <string name="close">Close</string>
     <string name="button_more_title">More</string>
+    <string name="account_placeholder_text">Your account</string>
+    <string name="search_course_placeholder">Search courses…</string>
+    <string name="sort_by_date">By publish date</string>
+    <string name="course_cover_image_load_failed">Failed to download an image for the course «%s»</string>
+    <string name="course_title">Course</string>
 
 </resources>

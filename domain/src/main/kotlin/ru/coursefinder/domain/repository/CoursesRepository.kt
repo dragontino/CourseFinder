@@ -10,9 +10,9 @@ interface CoursesRepository {
 
     suspend fun getCourseById(id: Long): Result<Course>
 
-    suspend fun likeCourse(course: Course): Result<Unit>
+    suspend fun saveCourse(courseId: Long): Result<Unit>
 
-    suspend fun dislikeCourse(course: Course): Result<Unit>
+    suspend fun removeCourseFromSaved(courseId: Long): Result<Unit>
 
-    fun getFavouriteCourses(): Flow<List<Course>>
+    fun getSavedCourses(): Flow<List<Course>>
 }

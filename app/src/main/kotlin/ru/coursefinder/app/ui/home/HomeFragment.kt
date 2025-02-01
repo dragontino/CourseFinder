@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.PagingDataAdapter
@@ -45,17 +46,12 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.coursesRecyclerView.applyWindowInsets(WindowInsetsCompat.Type.systemBars())
-        binding.emptyListPlaceholder.applyWindowInsets(WindowInsetsCompat.Type.systemBars())
+        binding.toolbar.applyWindowInsets(WindowInsetsCompat.Type.systemBars())
 
         setupCoursesRecyclerView()
 
         viewModel.messageLiveData.observe(viewLifecycleOwner) { message ->
-            val duration = when (message.action) {
-                null -> Snackbar.LENGTH_INDEFINITE
-                else -> Snackbar.LENGTH_LONG
-            }
-            Snackbar.make(view, message.text, duration)
+            Snackbar.make(view, message.text, Snackbar.LENGTH_LONG)
                 .setTextColor(Color.BLACK)
                 .setBackgroundTint(Color.WHITE)
                 .setActionTextColor(Color.RED)
@@ -101,20 +97,23 @@ class HomeFragment : Fragment() {
 
     private fun setupCoursesRecyclerView() {
         val coursesAdapter = CoursesAdapter(object : CourseItemListener {
-            override fun addCourseToFavourite(course: Course) {
+            override fun saveCourse(course: Course) {
                 viewModel.sendMessage("Курс теперь в избранном")
             }
 
-            override fun removeCourseFromFavourites(course: Course) {
+            override fun removeCourseFromSaved(course: Course) {
                 viewModel.sendMessage("Курс больше не избранный")
             }
 
             override fun openCourseDetails(course: Course) {
-                viewModel.sendMessage("Открываем курс")
+                val action = HomeFragmentDirections.showCourseDetailsAction(courseId = course.id)
+                findNavController().navigate(action)
             }
 
             override fun onCourseImageLoadFailed(course: Course) {
-                viewModel.sendMessage(message = "Не удалось загрузить изображение для курса ${course.title}")
+                viewModel.sendMessage(
+                    message = getString(R.string.course_cover_image_load_failed, course.title)
+                )
             }
         })
         coursesAdapter.addLoadStateListener(coursesLoadStateListener)
