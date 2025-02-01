@@ -5,6 +5,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import androidx.room.withTransaction
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -31,14 +32,19 @@ internal class CourseRemoteMediator(
         }
 
         val result: Result<MediatorResult> = runCatching {
-            val loadKey = when (loadType) {
+            val currentPage = when (loadType) {
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
-                LoadType.REFRESH -> 1
-                LoadType.APPEND -> state.lastItemOrNull()?.page?.plus(1) ?: INITIAL_PAGE
+                LoadType.REFRESH -> INITIAL_PAGE
+                LoadType.APPEND -> {
+                    val lastItem = state.lastItemOrNull() ?: return MediatorResult.Success(
+                        endOfPaginationReached = true
+                    )
+                    lastItem.page
+                }
             }
 
             val coursesResponse = coursesApi.getCoursesFromPage(
-                page = loadKey,
+                page = currentPage,
                 pageSize = state.config.pageSize
             )
 
@@ -61,7 +67,12 @@ internal class CourseRemoteMediator(
                         )
                 }
 
-                coursesDb.dao.upsertAll(courses)
+                coursesDb.withTransaction {
+                    if (loadType == LoadType.REFRESH) {
+                        coursesDb.dao.clearUnsavedCourses()
+                    }
+                    coursesDb.dao.upsertAll(courses)
+                }
             }
 
             MediatorResult.Success(

@@ -152,7 +152,6 @@ class HomeFragment : Fragment() {
             OrderBy.PublishDate(isAscending = false)
         )
         var selectedIndex = orderByVariants.indexOf(initialSelectedItem)
-        println("initial selected index = $selectedIndex")
 
         MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.sort_by_title)
@@ -161,7 +160,6 @@ class HomeFragment : Fragment() {
                 /* checkedItem = */ selectedIndex
             ) { dialog, which ->
                 selectedIndex = which
-                println("new selected index = $selectedIndex")
             }
             .setPositiveButton(R.string.accept_button_title) { dialog, which ->
                 onConfirm(orderByVariants[selectedIndex])

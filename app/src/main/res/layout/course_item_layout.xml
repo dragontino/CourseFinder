@@ -38,52 +38,34 @@
             />
 
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <include
             android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/course_chip_shape"
-            android:paddingVertical="5dp"
-            android:paddingHorizontal="6dp"
+            layout="@layout/icon_text_chip_layout"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="@id/cover"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"/>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="12dp"
-                android:layout_height="match_parent"
-                app:srcCompat="@drawable/icon_star_filled"
-                android:layout_gravity="center" />
-
-            <Space
-                android:layout_width="4dp"
-                android:layout_height="match_parent"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/rating_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/BodySmall"
-                android:lineSpacingExtra="0dp"
-                />
-
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-
-        <com.google.android.material.textview.MaterialTextView
+        <include
             android:id="@+id/publish_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/course_chip_shape"
-            android:paddingVertical="5dp"
-            android:paddingHorizontal="6dp"
-            android:lineSpacingExtra="0dp"
+            layout="@layout/icon_text_chip_layout"
+            android:layout_marginStart="4dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintStart_toEndOf="@id/rating"
+            app:layout_constraintBottom_toBottomOf="@id/cover" />
+
+        <include
+            android:id="@+id/learners_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/icon_text_chip_layout"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="4dp"
-            android:textAppearance="@style/BodySmall"
-            app:layout_constraintStart_toEndOf="@id/rating"
+            app:layout_constraintStart_toEndOf="@id/publish_date"
             app:layout_constraintBottom_toBottomOf="@id/cover"
             />
 

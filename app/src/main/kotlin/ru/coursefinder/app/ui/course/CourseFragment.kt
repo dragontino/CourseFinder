@@ -145,12 +145,26 @@ class CourseFragment : Fragment() {
                 .into(this)
         }
 
-        course.rating?.let {
-            binding.ratingValue.text = String.format(Locale.getDefault(), "%.2f", it)
+        binding.rating.apply {
+            root.isVisible = course.rating != null
+            icon.isVisible = true
+            icon.setImageResource(R.drawable.icon_star_filled)
+            course.rating?.let {
+                text.text = String.format(Locale.getDefault(), "%.2f", it)
+            }
         }
-        binding.rating.isVisible = course.rating != null
+        binding.publishDate.apply {
+            text.text = course.publishDate.parseToDate().getDisplayableDateString()
+        }
 
-        binding.publishDate.text = course.publishDate.parseToDate().getDisplayableDateString()
+        binding.learnersCount.apply {
+            root.isVisible = course.learnersCount?.takeIf { it > 0 } != null
+            icon.isVisible = true
+            icon.setImageResource(R.drawable.icon_person_filled)
+            course.learnersCount?.let {
+                text.text = String.format(Locale.getDefault(), "%d", it)
+            }
+        }
 
         binding.title.text = when (Locale.getDefault().language) {
             "ru" -> course.title

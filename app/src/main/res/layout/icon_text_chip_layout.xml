@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/course_chip_shape"
+    android:paddingVertical="5dp"
+    android:paddingHorizontal="6dp">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        />
+
+    <Space
+        android:layout_width="4dp"
+        android:layout_height="match_parent"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textAppearance="@style/BodySmall"
+        android:lineSpacingExtra="0dp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

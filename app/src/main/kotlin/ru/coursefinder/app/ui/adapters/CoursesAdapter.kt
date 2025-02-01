@@ -56,19 +56,26 @@ internal class CoursesAdapter(
                 }
             }
 
-            binding.rating.isVisible = course.rating != null
-            binding.ratingValue.apply {
-                course.rating?.let { rating ->
-                    text = String.format(
-                        locale = Locale.getDefault(),
-                        format = "%.2f",
-                        args = arrayOf(rating)
-                    )
+            binding.rating.apply {
+                root.isVisible = course.rating != null
+                icon.isVisible = true
+                icon.setImageResource(R.drawable.icon_star_filled)
+                course.rating?.let {
+                    text.text = String.format(Locale.getDefault(), "%.2f", it)
                 }
             }
 
             binding.publishDate.apply {
-                text = course.publishDate.parseToDate().getDisplayableDateString()
+                text.text = course.publishDate.parseToDate().getDisplayableDateString()
+            }
+
+            binding.learnersCount.apply {
+                root.isVisible = course.learnersCount?.takeIf { it > 0 } != null
+                icon.isVisible = true
+                icon.setImageResource(R.drawable.icon_person_filled)
+                course.learnersCount?.let {
+                    text.text = String.format(Locale.getDefault(), "%d", it)
+                }
             }
 
             binding.title.apply {

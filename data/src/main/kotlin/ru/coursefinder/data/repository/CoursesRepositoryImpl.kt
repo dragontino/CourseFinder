@@ -71,7 +71,10 @@ internal class CoursesRepositoryImpl(
     ) = Pager(
         pagingSourceFactory = sourceFactory,
         remoteMediator = CourseRemoteMediator(coursesDb, api),
-        config = PagingConfig(pageSize = 40)
+        config = PagingConfig(
+            pageSize = 20,
+            initialLoadSize = 5
+        )
     )
 
 
