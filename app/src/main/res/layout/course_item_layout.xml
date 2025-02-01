@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:shapeAppearance="@style/CardShapeAppearance"
-    app:cardBackgroundColor="@color/toolbar_background_color">
+    app:cardBackgroundColor="@color/toolbar_background_color_90">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

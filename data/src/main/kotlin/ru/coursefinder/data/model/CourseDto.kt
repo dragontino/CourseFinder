@@ -42,7 +42,7 @@ internal data class CourseDto(
         targetAudience = targetAudience,
         requirements = requirements,
         publishDate = publishDate,
-        startCourseUrl = startCourseUrl,
+        startCourseUrl = "https://stepik.org$startCourseUrl",
         canonicalUrl = canonicalUrl,
         price = price,
         rating = rating,

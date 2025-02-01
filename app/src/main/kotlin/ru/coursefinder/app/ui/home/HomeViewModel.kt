@@ -15,8 +15,14 @@ import ru.coursefinder.app.utils.Action
 import ru.coursefinder.app.utils.EventMessage
 import ru.coursefinder.domain.model.Course
 import ru.coursefinder.domain.usecase.GetAvailableCoursesUseCase
+import ru.coursefinder.domain.usecase.RemoveCourseUseCase
+import ru.coursefinder.domain.usecase.SaveCourseUseCase
 
-class HomeViewModel(private val coursesUseCase: GetAvailableCoursesUseCase) : ViewModel() {
+class HomeViewModel(
+    private val coursesUseCase: GetAvailableCoursesUseCase,
+    private val saveCourseUseCase: SaveCourseUseCase,
+    private val removeCourseUseCase: RemoveCourseUseCase
+) : ViewModel() {
     private val messageChannel = Channel<EventMessage>()
     val messageLiveData = messageChannel.receiveAsFlow().asLiveData()
 
@@ -33,6 +39,17 @@ class HomeViewModel(private val coursesUseCase: GetAvailableCoursesUseCase) : Vi
     fun sendMessage(message: String, action: Action? = null) {
         viewModelScope.launch {
             messageChannel.send(EventMessage(message, action))
+        }
+    }
+
+    fun saveCourse(course: Course) {
+        viewModelScope.launch {
+            when {
+                course.isFavourite -> removeCourseUseCase(course.id)
+                else -> saveCourseUseCase(course.id)
+            }.onFailure { throwable ->
+                throwable.localizedMessage?.let { sendMessage(it) }
+            }
         }
     }
 }

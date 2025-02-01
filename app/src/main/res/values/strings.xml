@@ -12,5 +12,9 @@
     <string name="sort_by_date">By publish date</string>
     <string name="course_cover_image_load_failed">Failed to download an image for the course «%s»</string>
     <string name="course_title">Course</string>
+    <string name="author_title">Author</string>
+    <string name="start_course">Start the course</string>
+    <string name="go_to_platform">Go to the platform</string>
+    <string name="course_about">About the course</string>
 
 </resources>

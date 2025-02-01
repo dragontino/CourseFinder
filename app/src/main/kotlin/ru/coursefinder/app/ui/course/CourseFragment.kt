@@ -1,12 +1,15 @@
 package ru.coursefinder.app.ui.course
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.text.parseAsHtml
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
@@ -27,6 +30,10 @@ import ru.coursefinder.app.R
 import ru.coursefinder.app.databinding.FragmentCourseBinding
 import ru.coursefinder.app.utils.Action
 import ru.coursefinder.app.utils.applyWindowInsets
+import ru.coursefinder.app.utils.getDisplayableDateString
+import ru.coursefinder.app.utils.parseToDate
+import ru.coursefinder.domain.model.Course
+import java.util.Locale
 
 class CourseFragment : Fragment() {
 
@@ -78,58 +85,105 @@ class CourseFragment : Fragment() {
             findNavController().popBackStack()
         }
 
-        viewModel.courseLiveData.observe(viewLifecycleOwner) { course ->
-            binding.saveCourseButton.apply {
-                when {
-                    course.isFavourite -> setImageResource(R.drawable.icon_bookmark_filled)
-                    else -> {
-                        setImageResource(R.drawable.icon_bookmark)
-                        imageTintList = ColorStateList.valueOf(
-                            requireContext().getColor(R.color.light_black)
-                        )
-                    }
-                }
+        viewModel.courseLiveData.observe(viewLifecycleOwner) {
+            setupCourse(course = it)
+        }
+    }
 
-                setOnClickListener {
-                    when {
-                        course.isFavourite -> viewModel.removeCourseFromSaved()
-                        else -> viewModel.saveCourse()
-                    }
+
+    private fun setupCourse(course: Course) {
+        binding.saveCourseButton.apply {
+            when {
+                course.isFavourite -> setImageResource(R.drawable.icon_bookmark_filled)
+                else -> {
+                    setImageResource(R.drawable.icon_bookmark)
+                    imageTintList = ColorStateList.valueOf(
+                        requireContext().getColor(R.color.light_black)
+                    )
                 }
             }
 
-            binding.courseCover.apply {
-                Glide
-                    .with(context.applicationContext)
-                    .load(course.cover)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
-                    .transition(DrawableTransitionOptions.withCrossFade())
-                    .fitCenter()
-                    .listener(object : RequestListener<Drawable> {
-                        override fun onLoadFailed(
-                            e: GlideException?,
-                            model: Any?,
-                            target: Target<Drawable>,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            this@apply.isInvisible = true
-                            return false
-                        }
-
-                        override fun onResourceReady(
-                            resource: Drawable,
-                            model: Any,
-                            target: Target<Drawable?>?,
-                            dataSource: DataSource,
-                            isFirstResource: Boolean
-                        ): Boolean {
-                            this@apply.isVisible = true
-                            return false
-                        }
-                    })
-                    .into(this)
+            setOnClickListener {
+                viewModel.saveCourse(course)
             }
         }
+
+        binding.courseCover.apply {
+            Glide
+                .with(context.applicationContext)
+                .load(course.cover)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .fitCenter()
+                .listener(object : RequestListener<Drawable> {
+                    override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Drawable>,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        this@apply.isInvisible = true
+                        return false
+                    }
+
+                    override fun onResourceReady(
+                        resource: Drawable,
+                        model: Any,
+                        target: Target<Drawable?>?,
+                        dataSource: DataSource,
+                        isFirstResource: Boolean
+                    ): Boolean {
+                        this@apply.isVisible = true
+                        return false
+                    }
+                })
+                .into(this)
+        }
+
+        course.rating?.let {
+            binding.ratingValue.text = String.format(Locale.getDefault(), "%.2f", it)
+        }
+        binding.rating.isVisible = course.rating != null
+
+        binding.publishDate.text = course.publishDate.parseToDate().getDisplayableDateString()
+
+        binding.title.text = when (Locale.getDefault().language) {
+            "ru" -> course.title
+            else -> course.englishTitle.ifBlank { course.title }
+        }
+
+        val author = course.authors.firstOrNull()
+        binding.authorImage.isVisible = author != null
+        binding.authorTitle.isVisible = author != null
+        binding.authorName.isVisible = author != null
+
+        binding.authorImage.takeIf { author != null }?.apply {
+            Glide
+                .with(context.applicationContext)
+                .load(author!!.avatarUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .circleCrop()
+                .into(this)
+        }
+
+        author?.fullName?.let { binding.authorName.text = it }
+
+        binding.buttonStartCourse.setOnClickListener {
+            openLink(course.startCourseUrl)
+        }
+
+        binding.goToPlatform.setOnClickListener {
+            openLink(course.canonicalUrl)
+        }
+
+        binding.courseDescription.text = course.description.parseAsHtml()
+    }
+
+
+    private fun openLink(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
 

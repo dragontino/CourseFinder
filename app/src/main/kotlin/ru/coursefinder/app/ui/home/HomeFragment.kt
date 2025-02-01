@@ -98,11 +98,7 @@ class HomeFragment : Fragment() {
     private fun setupCoursesRecyclerView() {
         val coursesAdapter = CoursesAdapter(object : CourseItemListener {
             override fun saveCourse(course: Course) {
-                viewModel.sendMessage("Курс теперь в избранном")
-            }
-
-            override fun removeCourseFromSaved(course: Course) {
-                viewModel.sendMessage("Курс больше не избранный")
+                viewModel.saveCourse(course)
             }
 
             override fun openCourseDetails(course: Course) {

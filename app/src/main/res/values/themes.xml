@@ -13,7 +13,7 @@
         <item name="android:textSize">12sp</item>
         <item name="android:letterSpacing">0.03</item>
         <item name="android:fontFamily">@font/roboto</item>
-        <item name="android:background">@color/toolbar_background_color</item>
+        <item name="android:background">@color/toolbar_background_color_90</item>
     </style>
 
     <style name="BottomNavigationView.Active">

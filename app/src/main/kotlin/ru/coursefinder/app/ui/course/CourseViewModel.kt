@@ -44,16 +44,17 @@ class CourseViewModel(
     }
 
 
-    fun saveCourse() {
+    fun saveCourse(course: Course) {
         viewModelScope.launch {
             _isLoadingLiveData.postValue(true)
-            getCourseUseCase
+            when {
+                course.isFavourite -> removeCourseUseCase(course.id)
+                else -> saveCourseUseCase(course.id)
+            }.onFailure { throwable ->
+                throwable.localizedMessage?.let { sendMessage(it) }
+            }
             _isLoadingLiveData.postValue(false)
         }
-    }
-
-    fun removeCourseFromSaved() {
-
     }
 
 

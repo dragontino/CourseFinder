@@ -52,10 +52,7 @@ internal class CoursesAdapter(
                 }
 
                 setOnClickListener {
-                    when {
-                        course.isFavourite -> listener.removeCourseFromSaved(course)
-                        else -> listener.saveCourse(course)
-                    }
+                    listener.saveCourse(course)
                 }
             }
 
@@ -149,8 +146,6 @@ internal class CoursesAdapter(
 
 internal interface CourseItemListener {
     fun saveCourse(course: Course)
-
-    fun removeCourseFromSaved(course: Course)
 
     fun openCourseDetails(course: Course)
 

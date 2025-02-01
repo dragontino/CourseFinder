@@ -70,7 +70,7 @@
                 android:layout_height="55dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/icon_filter"
-                android:backgroundTint="@color/toolbar_background_color"
+                android:backgroundTint="@color/toolbar_background_color_90"
                 android:paddingHorizontal="16dp"
                 android:paddingVertical="8dp"
                 android:background="@drawable/circle_shape" />

@@ -12,4 +12,8 @@
     <string name="sort_by_date">По дате добавления</string>
     <string name="course_cover_image_load_failed">Не удалось загрузить изображение для курса «%s»</string>
     <string name="course_title">Курс</string>
+    <string name="author_title">Автор</string>
+    <string name="start_course">Начать курс</string>
+    <string name="go_to_platform">Перейти на платформу</string>
+    <string name="course_about">О курсе</string>
 </resources>
