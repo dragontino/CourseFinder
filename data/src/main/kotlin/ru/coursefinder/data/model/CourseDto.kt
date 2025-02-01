@@ -23,6 +23,7 @@ internal data class CourseDto(
     @SerialName("canonical_url") val canonicalUrl: String,
     @SerialName("display_price") val price: String?,
     @SerialName("is_favorite") val isFavourite: Boolean,
+    @SerialName("learners_count") val learnersCount: Int,
     val authorIds: List<Long> = emptyList()
 ) {
     fun convertToDomainCourse(
@@ -46,6 +47,7 @@ internal data class CourseDto(
         canonicalUrl = canonicalUrl,
         price = price,
         rating = rating,
+        learnersCount = learnersCount,
         authors = authors,
     )
 }

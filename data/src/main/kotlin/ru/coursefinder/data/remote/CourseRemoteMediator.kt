@@ -5,7 +5,6 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -62,12 +61,7 @@ internal class CourseRemoteMediator(
                         )
                 }
 
-                coursesDb.withTransaction {
-                    if (loadType == LoadType.REFRESH) {
-                        coursesDb.dao.clearUnsavedCourses()
-                    }
-                    coursesDb.dao.upsertAll(courses)
-                }
+                coursesDb.dao.upsertAll(courses)
             }
 
             MediatorResult.Success(

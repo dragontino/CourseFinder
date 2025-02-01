@@ -9,13 +9,19 @@
     <string name="button_more_title">More</string>
     <string name="account_placeholder_text">Your account</string>
     <string name="search_course_placeholder">Search courses…</string>
+    <string name="sort_by_title">Sort by…</string>
     <string name="sort_by_date">By publish date</string>
+    <string name="sort_by_popularity">By popularity</string>
+    <string name="sort_by_rating">By rating</string>
+    <string name="ascending_postfix">asc</string>
+    <string name="descending_postfix">desc</string>
     <string name="course_cover_image_load_failed">Failed to download an image for the course «%s»</string>
     <string name="course_title">Course</string>
     <string name="author_title">Author</string>
     <string name="start_course">Start the course</string>
     <string name="go_to_platform">Go to the platform</string>
     <string name="course_about">About the course</string>
-    <string name="favourite_title">Favourite</string>
+    <string name="accept_button_title">Accept</string>
+    <string name="cancel_button_title">Cancel</string>
 
 </resources>

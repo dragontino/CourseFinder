@@ -1,6 +1,7 @@
 package ru.coursefinder.data.local
 
 import android.content.Context
+import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -10,8 +11,11 @@ import ru.coursefinder.data.model.CourseEntity
 @TypeConverters(UserListConverter::class)
 @Database(
     entities = [CourseEntity::class],
-    version = 1,
-    exportSchema = true
+    version = 2,
+    exportSchema = true,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2)
+    ]
 )
 internal abstract class CoursesDatabase : RoomDatabase() {
     abstract val dao: CourseDao

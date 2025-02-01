@@ -1,5 +1,6 @@
 package ru.coursefinder.app.ui.home
 
+import android.content.res.Resources
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import androidx.paging.LoadState
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -27,6 +29,7 @@ import ru.coursefinder.app.utils.Action
 import ru.coursefinder.app.utils.applyWindowInsets
 import ru.coursefinder.app.utils.createSpacerDrawable
 import ru.coursefinder.domain.model.Course
+import ru.coursefinder.domain.model.OrderBy
 
 class HomeFragment : Fragment() {
 
@@ -47,6 +50,16 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbar.applyWindowInsets(WindowInsetsCompat.Type.systemBars())
+
+        viewModel.orderByLiveData.observe(viewLifecycleOwner) {
+            binding.sortCoursesTitle.text = it.getDisplayableTitle(resources)
+        }
+        binding.sortCoursesButton.setOnClickListener {
+            showOrderBySelectionDialog(
+                initialSelectedItem = viewModel.orderByLiveData.value ?: HomeViewModel.defaultOrder,
+                onConfirm = viewModel::updateOrderBy
+            )
+        }
 
         setupCoursesRecyclerView()
 
@@ -83,7 +96,6 @@ class HomeFragment : Fragment() {
 
             arrayOf(loadStates.source.refresh, loadStates.source.append).forEach { loadState ->
                 if (loadState is LoadState.Error) {
-                    throw loadState.error
                     loadState.error.localizedMessage?.let {
                         val retryAction = Action(requireContext().getString(R.string.retry)) {
                             adapter.retry()
@@ -124,6 +136,51 @@ class HomeFragment : Fragment() {
         viewModel.coursesFlow
             .onEach(coursesAdapter::submitData)
             .launchIn(viewModel.viewModelScope)
+    }
+
+
+    private fun showOrderBySelectionDialog(
+        initialSelectedItem: OrderBy,
+        onConfirm: (OrderBy) -> Unit
+    ) {
+        val orderByVariants = listOf(
+            OrderBy.Popularity(isAscending = true),
+            OrderBy.Popularity(isAscending = false),
+            OrderBy.Rating(isAscending = true),
+            OrderBy.Rating(isAscending = false),
+            OrderBy.PublishDate(isAscending = true),
+            OrderBy.PublishDate(isAscending = false)
+        )
+        var selectedIndex = orderByVariants.indexOf(initialSelectedItem)
+        println("initial selected index = $selectedIndex")
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.sort_by_title)
+            .setSingleChoiceItems(
+                /* items = */ orderByVariants.map { it.getDisplayableTitle(resources) }.toTypedArray(),
+                /* checkedItem = */ selectedIndex
+            ) { dialog, which ->
+                selectedIndex = which
+                println("new selected index = $selectedIndex")
+            }
+            .setPositiveButton(R.string.accept_button_title) { dialog, which ->
+                onConfirm(orderByVariants[selectedIndex])
+            }
+            .setNeutralButton(R.string.cancel_button_title) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+    }
+
+
+    private fun OrderBy.getDisplayableTitle(resources: Resources): String {
+        val postfix = if (isAscending) R.string.ascending_postfix else R.string.descending_postfix
+        val titleRes = when (this) {
+            is OrderBy.Popularity -> R.string.sort_by_popularity
+            is OrderBy.PublishDate -> R.string.sort_by_date
+            is OrderBy.Rating -> R.string.sort_by_rating
+        }
+        return "${resources.getString(titleRes)} (${resources.getString(postfix)})"
     }
 
 

@@ -21,6 +21,7 @@ fun CourseEntity.mapToDomainCourse() = Course(
     price = price,
     rating = rating,
     isFavourite = isFavourite,
+    learnersCount = learnersCount,
     authors = authors
 )
 
@@ -48,5 +49,6 @@ internal fun CourseDto.mapToCourseEntity(
     price = price,
     rating = rating,
     authors = authors,
+    learnersCount = learnersCount,
     page = page
 )

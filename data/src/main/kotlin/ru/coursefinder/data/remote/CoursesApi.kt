@@ -45,7 +45,7 @@ private class CoursesApiImpl : CoursesApi {
                     url {
                         appendEncodedPathSegments("courses")
                         parameters.append(name = "page", value = page.toString())
-                        /*parameters.append(name = "page_size", value = pageSize.toString())*/
+                        parameters.append(name = "page_size", value = pageSize.toString())
                     }
                 }.bodyAsText().let(json::decodeFromString)
             }

@@ -7,10 +7,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flowOn
 import ru.coursefinder.domain.model.Course
+import ru.coursefinder.domain.model.OrderBy
 import ru.coursefinder.domain.repository.CoursesRepository
 
 interface GetAvailableCoursesUseCase {
-    operator fun invoke(): Flow<PagingData<Course>>
+    operator fun invoke(orderBy: OrderBy? = null): Flow<PagingData<Course>>
 }
 
 
@@ -23,9 +24,9 @@ internal class GetAvailableCoursesUseCaseImpl(
         const val TAG = "GetAvailableCourses"
     }
 
-    override fun invoke(): Flow<PagingData<Course>> {
+    override fun invoke(orderBy: OrderBy?): Flow<PagingData<Course>> {
         return repository
-            .getAvailableCourses()
+            .getAvailableCourses(orderBy)
             .flowOn(dispatcher)
             .catch { throwable ->
                 Log.e(TAG, throwable.message, throwable)

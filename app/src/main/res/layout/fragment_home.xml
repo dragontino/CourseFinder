@@ -87,11 +87,10 @@
             android:layout_gravity="end">
 
             <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/courses_sort_button"
+                android:id="@+id/sort_courses_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end|center_vertical"
-                android:text="@string/sort_by_date"
                 android:textAppearance="@style/BodyMedium"
                 android:paddingHorizontal="8dp"
                 android:textColor="@color/selected_item_color" />

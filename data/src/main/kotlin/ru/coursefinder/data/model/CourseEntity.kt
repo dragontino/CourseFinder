@@ -24,6 +24,7 @@ data class CourseEntity(
     val price: String?,
     val rating: Double?,
     @ColumnInfo("is_favourite") val isFavourite: Boolean,
+    @ColumnInfo("learners_count", defaultValue = "null") val learnersCount: Int?,
     val authors: List<User>,
     val page: Int
 )

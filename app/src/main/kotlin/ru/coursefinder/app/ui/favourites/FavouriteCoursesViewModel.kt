@@ -21,7 +21,6 @@ class FavouriteCoursesViewModel(
     private val getSavedCoursesUseCase: GetSavedCoursesUseCase,
     private val removeSavedCoursesUseCase: RemoveCourseUseCase
 ) : ViewModel() {
-
     private val messageChannel = Channel<EventMessage>()
     val messageLiveData = messageChannel.receiveAsFlow().asLiveData()
 

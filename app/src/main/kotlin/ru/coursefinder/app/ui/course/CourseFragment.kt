@@ -94,7 +94,12 @@ class CourseFragment : Fragment() {
     private fun setupCourse(course: Course) {
         binding.saveCourseButton.apply {
             when {
-                course.isFavourite -> setImageResource(R.drawable.icon_bookmark_filled)
+                course.isFavourite -> {
+                    setImageResource(R.drawable.icon_bookmark_filled)
+                    imageTintList = ColorStateList.valueOf(
+                        requireContext().getColor(R.color.selected_item_color)
+                    )
+                }
                 else -> {
                     setImageResource(R.drawable.icon_bookmark)
                     imageTintList = ColorStateList.valueOf(

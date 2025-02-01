@@ -9,12 +9,18 @@
     <string name="button_more_title">Подробнее</string>
     <string name="account_placeholder_text">Ваш аккаунт</string>
     <string name="search_course_placeholder">Искать курсы…</string>
-    <string name="sort_by_date">По дате добавления</string>
+    <string name="sort_by_title">Сортировать по…</string>
+    <string name="sort_by_date">По дате публикации</string>
+    <string name="sort_by_popularity">По популярности</string>
+    <string name="sort_by_rating">По рейтингу</string>
+    <string name="ascending_postfix">возр.</string>
+    <string name="descending_postfix">убыв.</string>
     <string name="course_cover_image_load_failed">Не удалось загрузить изображение для курса «%s»</string>
     <string name="course_title">Курс</string>
     <string name="author_title">Автор</string>
     <string name="start_course">Начать курс</string>
     <string name="go_to_platform">Перейти на платформу</string>
     <string name="course_about">О курсе</string>
-    <string name="favourite_title">Избранное</string>
+    <string name="accept_button_title">Сохранить</string>
+    <string name="cancel_button_title">Отменить</string>
 </resources>

@@ -83,7 +83,6 @@ class FavouriteCoursesFragment : Fragment() {
 
             arrayOf(loadStates.source.refresh, loadStates.source.append).forEach { loadState ->
                 if (loadState is LoadState.Error) {
-                    throw loadState.error
                     loadState.error.localizedMessage?.let {
                         val retryAction = Action(requireContext().getString(R.string.retry)) {
                             adapter.retry()

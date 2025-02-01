@@ -6,15 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".ui.favourites.FavouriteCoursesFragment">
 
-    <androidx.appcompat.widget.Toolbar
+    <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/toolbar_background_color_90"
-        app:title="@string/favourite_title"
-        app:titleTextAppearance="@style/BodyLarge"
-        android:translationZ="1dp" />
+        style="@style/MaterialToolbar"
+        android:translationZ="1dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/favourites_fragment_title"
+            android:textAppearance="@style/BodyLarge"
+            android:textColor="@color/white"
+            android:gravity="start"
+            android:layout_margin="16dp" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -30,7 +40,7 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="60dp"/>
+                android:layout_height="80dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/courses_recycler_view"
