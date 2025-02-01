@@ -14,5 +14,5 @@ interface CoursesRepository {
 
     suspend fun removeCourseFromSaved(courseId: Long): Result<Unit>
 
-    fun getSavedCourses(): Flow<List<Course>>
+    fun getSavedCourses(): Flow<PagingData<Course>>
 }

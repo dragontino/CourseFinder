@@ -28,7 +28,7 @@ internal class CoursesApiPagingSource(private val api: CoursesApi) : PagingSourc
                 val page = params.key ?: INITIAL_PAGE
                 val response = api.getCoursesFromPage(page = page, pageSize = params.loadSize)
                 Log.d(
-                    "CoursesApiPagingSource",
+                    TAG,
                     "Loaded ${response.courses.size} courses from page ${response.meta.page}"
                 )
                 val courses = response.courses.map { course ->

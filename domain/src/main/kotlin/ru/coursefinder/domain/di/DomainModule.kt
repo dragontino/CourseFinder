@@ -6,6 +6,8 @@ import ru.coursefinder.domain.usecase.GetAvailableCoursesUseCase
 import ru.coursefinder.domain.usecase.GetAvailableCoursesUseCaseImpl
 import ru.coursefinder.domain.usecase.GetCourseByIdUseCase
 import ru.coursefinder.domain.usecase.GetCourseByIdUseCaseImpl
+import ru.coursefinder.domain.usecase.GetSavedCoursesUseCase
+import ru.coursefinder.domain.usecase.GetSavedCoursesUseCaseImpl
 import ru.coursefinder.domain.usecase.RemoveCourseUseCase
 import ru.coursefinder.domain.usecase.RemoveCourseUseCaseImpl
 import ru.coursefinder.domain.usecase.SaveCourseUseCase
@@ -35,6 +37,13 @@ val domainModule = module {
 
     single<RemoveCourseUseCase> {
         RemoveCourseUseCaseImpl(
+            repository = get(),
+            dispatcher = Dispatchers.IO
+        )
+    }
+
+    single<GetSavedCoursesUseCase> {
+        GetSavedCoursesUseCaseImpl(
             repository = get(),
             dispatcher = Dispatchers.IO
         )

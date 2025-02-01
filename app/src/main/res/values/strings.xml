@@ -16,5 +16,6 @@
     <string name="start_course">Start the course</string>
     <string name="go_to_platform">Go to the platform</string>
     <string name="course_about">About the course</string>
+    <string name="favourite_title">Favourite</string>
 
 </resources>
